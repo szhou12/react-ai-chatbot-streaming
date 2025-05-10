@@ -26,9 +26,6 @@ function useAutoScroll(active) {
         return () => resizeObserver.disconnect()
     }, [])
 
-    /**
-     * 
-     */
     useLayoutEffect(() => {
         if (!active) {
             isDisabled.current = true
