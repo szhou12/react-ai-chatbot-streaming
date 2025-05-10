@@ -12,6 +12,9 @@ npm install
 npm install @chakra-ui/react@^3.13.0
 npm install @emotion/react
 npm install react-icons
+
+npm install eventsource-parser
+npm install use-immer
 ```
 
 # References
