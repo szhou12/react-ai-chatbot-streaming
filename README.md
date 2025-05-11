@@ -15,6 +15,9 @@ npm install react-icons
 
 npm install eventsource-parser
 npm install use-immer
+npm install react-markdown
+
+npx @chakra-ui/cli snippet add prose
 ```
 
 # References

@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import { 
+    Box,
     Flex, 
+    Text,
+    VStack,
 } from '@chakra-ui/react'
 import { useImmer } from 'use-immer'
 
 import api from '@/api'
 import { parseSSEStream } from '@/utils'
+import ChatInput from './ChatInput'
+import ChatMessages from './ChatMessages'
 
 function Chatbot() {
     const [chatId, setChatId] = useState(null)
@@ -61,7 +66,34 @@ function Chatbot() {
             gap={6}
             pt={6}
         >
-            
+            {messages.length === 0 && (
+                <Box
+                    mt={3}
+                    fontFamily="sans-serif"
+                    color="blue.500"
+                    fontSize="xl"
+                    fontWeight="light"
+                >
+                    <VStack align="start" spacing={2}>
+                        <Text>👋 Welcome!</Text>
+                        <Text>
+                            I am powered by the latest technology reports from leading institutions like the World Bank, the World Economic Forum, McKinsey, Deloitte and the OECD.
+                        </Text>
+                        <Text>Ask me anything about the latest technology trends.</Text>
+                    </VStack>
+                </Box>
+            )}
+
+            <ChatMessages 
+                messages={messages}
+                isLoading={isLoading}
+            />
+            <ChatInput
+                newMessage={newMessage}
+                setNewMessage={setNewMessage}
+                submitNewMessage={submitNewMessage}
+                isLoading={isLoading}
+            />
         </Flex>
     )
 }
