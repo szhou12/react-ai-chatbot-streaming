@@ -68,7 +68,7 @@ function ChatInput({ newMessage, isLoading, setNewMessage, submitNewMessage }) {
                         borderRadius="3xl"
                         placeholder="Type a message"
                         _placeholder={{
-                        color: "primaryBlue.500",
+                        color: "blue.500",
                         lineHeight: "1rem",
                         transform: {
                             base: "translateY(-4px)",
@@ -102,3 +102,5 @@ function ChatInput({ newMessage, isLoading, setNewMessage, submitNewMessage }) {
 
     
 }
+
+export default ChatInput
