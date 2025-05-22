@@ -18,7 +18,13 @@ function ChatMessages({ messages, isLoading }) {
     const scrollContentRef = useAutoScroll(isLoading)
 
     return (
-        <Box ref={scrollContentRef} flex="1">
+        <Box 
+            ref={scrollContentRef} 
+            flex="1"
+            overflowY="auto"  // Enable vertical scrolling
+            height="100%"     // Take full height of parent
+            position="relative" // For proper scroll positioning
+        >
             <VStack spacing={4} align="stretch">
                 {messages.map(({ role, content, loading, error }, idx) => (
                     <Flex
@@ -46,7 +52,13 @@ function ChatMessages({ messages, isLoading }) {
                                     </Prose>
                                     
                                 ) : (
-                                    <Text whiteSpace="pre-line">{content}</Text>
+                                    <Text
+                                        whiteSpace="pre-wrap"     // Preserve line breaks and wrap text
+                                        wordBreak="break-word"    // Break long words if necessary
+                                        overflowWrap="break-word"
+                                    >
+                                        {content}
+                                    </Text>
                                 )}
                             </Box>
 
