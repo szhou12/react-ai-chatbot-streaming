@@ -1,9 +1,10 @@
 import { Box, Text } from '@chakra-ui/react';
+import { ThreeLayerLayout } from './ThreeLayerLayout'
 
-export const Sidebar = (props) => {
+const Sidebar = (props) => {
     return (
         <Box
-            borderRightWidth="1px"
+            borderRightWidth="4px"
             bg="blue.500"
             css={{
                 backgroundClip: 'padding-box',
@@ -17,3 +18,87 @@ export const Sidebar = (props) => {
         </Box>
     )
 }
+
+/**
+ * 3-layer structure
+ */
+const Sidebar2 = () => {
+    return (
+        <>
+            {/* Sticky Top */}
+            <Box
+                position="sticky" 
+                top="0" 
+                zIndex="sticky"
+                bg="pink.500"
+            >
+                <Text> Header </Text>
+            </Box>
+
+            {/* Scrollable Main Area */}
+            <Box 
+                flex="1" 
+                overflowY="auto"
+                bg="blue.500"
+                p={4}
+            >
+                <Text>Main Content Area</Text>
+            </Box>
+
+            {/* Sticky Bottom */}
+            <Box 
+                position="sticky" 
+                bottom="0" 
+                zIndex="sticky"
+                bg="green.500"
+                borderTopWidth="1px"
+                p={4}
+            >
+                <Text> Footer </Text>
+            </Box>
+
+        </>
+    )
+}
+
+/**
+ * 3-layer structure abstraction
+ */
+const Sidebar3 = () => {
+    const Top = () => {
+        return (
+            <Text> Sidebar Header </Text>
+        )
+    }
+
+    const Main = () => {
+        return (
+            <Text> Sidebar Main </Text>
+        )
+    }
+
+    const Bottom = () => {
+        return (
+            <Text> Sidebar Footer </Text>
+        )
+    }
+    
+    return (
+        <ThreeLayerLayout
+            top={<Top />}
+            topProps={{bg: 'pink.500'}}
+            main={<Main />}
+            mainProps={{bg: 'blue.500'}}
+            bottom={<Bottom />}
+            bottomProps={{bg: 'green.500', borderTopWidth:"1px", p:4}}
+        />
+    )
+}
+
+const Sidebar4 = () => {
+    return (
+        
+    )
+}
+
+export { Sidebar, Sidebar2, Sidebar3 }

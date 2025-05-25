@@ -1,9 +1,15 @@
 import { Container, Flex, Stack } from '@chakra-ui/react'
-import { Sidebar } from './Sidebar'
 import { Navbar } from './Navbar'
-import { Content2 } from './Content'
 import { Header } from './Header'
+import { Sidebar, Sidebar2, Sidebar3 } from './Sidebar'
+import { Content, Content2, Content3 } from './Content'
 
+/**
+ * 
+ * Right column: Content as whole
+ * Inside Content: header + main content + textarea
+ * Header: sticky to the top
+ */
 function Chatbot2() {
     return (
         <>
@@ -12,25 +18,31 @@ function Chatbot2() {
             <Flex 
                 flex="1"
             >
-                <Sidebar 
+
+                <Flex
                     hideBelow="md" 
                     maxW="xs" 
                     position="sticky" 
                     top="0" 
+                    direction="column"
                     height="100vh" 
-                />
-
-                <Container 
-                    maxW="4xl" 
-                    bg="purple.500"
-                    flex="1"
-                    display="flex"
-                    flexDirection="column"
-                    height="100vh"
-                    p={0}
+                    p={1}
+                    bg="gray.500"
                 >
-                    <Content2 />
-                </Container>
+                    <Sidebar3 />
+                </Flex>
+
+
+                <Flex 
+                    bg="blackAlpha.500"
+                    flex="1"
+                    direction="column"
+                    height="100vh"
+                    p={1}
+                    alignItems="stretch"
+                >
+                    <Content3 />
+                </Flex>
             </Flex>
         </>
     )

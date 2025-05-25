@@ -5,6 +5,11 @@ import {
     Textarea,
 } from '@chakra-ui/react';
 
+import { ThreeLayerLayout } from './ThreeLayerLayout'
+/**
+ * 
+ * single layout: content as whole
+ */
 const Content = (props) => {
     return (
         <Box 
@@ -24,15 +29,17 @@ const Content = (props) => {
     )
 }
 
-const Content2 = (props) => {
+/**
+ * 3 parts content: header + main content + textarea
+ * header: sticky to the top
+ * main content: scrollable
+ * textarea: sticky to the bottom
+ */
+const Content2 = () => {
 
     return (
-        <Flex
-            direction="column" 
-            height="100%"
-            {...props}
-        >
-            {/* Sticky Header */}
+        <>
+            {/* Sticky Top */}
             <Box
                 position="sticky" 
                 top="0" 
@@ -46,12 +53,13 @@ const Content2 = (props) => {
             <Box 
                 flex="1" 
                 overflowY="auto"
+                bg="blue.500"
                 p={4}
             >
                 <Text>Main Content Area</Text>
             </Box>
 
-            {/* Sticky Textarea */}
+            {/* Sticky Bottom */}
             <Box 
                 position="sticky" 
                 bottom="0" 
@@ -67,9 +75,48 @@ const Content2 = (props) => {
                 />
             </Box>
 
-        </Flex>
+        </>
     )
 
 }
 
-export { Content, Content2 }
+/**
+ * 3-layer structure abstraction
+ */
+const Content3 = () => {
+
+    const Header = () => {
+        return (
+            <Text> Header </Text>
+        )
+    }
+
+    const Main = () => {
+        return (
+            <Text>Main Content Area</Text>
+        )
+    }
+
+    const Bottom = () => {
+        return (
+            <Textarea 
+                placeholder="Type your message..."
+                resize="none"
+                rows={2}
+            />
+        )
+    }
+
+    return (
+        <ThreeLayerLayout
+            top={<Header />}
+            topProps={{bg: 'pink.500'}}
+            main={<Main />}
+            mainProps={{bg: 'blue.500'}}
+            bottom={<Bottom />}
+            bottomProps={{bg: 'green.500', borderTopWidth:"1px", p:4}}
+        />
+    )
+}
+
+export { Content, Content2, Content3 }

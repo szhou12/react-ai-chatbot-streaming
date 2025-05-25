@@ -4,7 +4,10 @@ import { Navbar } from './Navbar'
 import { Content } from './Content'
 import { Header } from './Header'
 
-
+/**
+ * Right column: header + content
+ * Inside content: main content + textarea 
+ */
 function Chatbot() {
     return (
         <>
