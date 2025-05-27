@@ -14,7 +14,7 @@ const TopLayer = ({ children, ...props }) => (
  * Scrollable Main Area
  */
 const MainLayer = ({ children, ...props }) => (
-    <Box flex="1" overflowY="auto" p={4} {...props}>
+    <Box flex="1" overflowY="auto" p={2} {...props}>
         {children}
     </Box>
 );

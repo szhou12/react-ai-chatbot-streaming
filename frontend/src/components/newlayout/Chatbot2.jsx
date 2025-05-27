@@ -1,7 +1,7 @@
 import { Container, Flex, Stack } from '@chakra-ui/react'
 import { Navbar } from './Navbar'
 import { Header } from './Header'
-import { Sidebar, Sidebar2, Sidebar3 } from './Sidebar'
+import { Sidebar, Sidebar2, Sidebar3, CollapsibleSidebar, TemplateSidebar, TemplateSidebarThreeLayer } from './Sidebar'
 import { Content, Content2, Content3 } from './Content'
 
 /**
@@ -21,15 +21,18 @@ function Chatbot2() {
 
                 <Flex
                     hideBelow="md" 
-                    maxW="xs" 
+                    w="xs" 
                     position="sticky" 
                     top="0" 
                     direction="column"
                     height="100vh" 
                     p={1}
-                    bg="gray.500"
+                    bg="purple.800"
                 >
-                    <Sidebar3 />
+                    {/* <Sidebar3 /> */}
+                    {/* <CollapsibleSidebar /> */}
+                    {/* <TemplateSidebar /> */}
+                    <TemplateSidebarThreeLayer />
                 </Flex>
 
 

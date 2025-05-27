@@ -1,5 +1,27 @@
-import { Box, Text } from '@chakra-ui/react';
+import { 
+    Box, 
+    Stack,
+    StackSeparator,
+    Text,
+} from '@chakra-ui/react';
+import { useState } from 'react'
+
+import {
+    LuBookmark,
+    LuClock,
+    LuCircleHelp,
+    LuLayoutDashboard,
+    LuChartPie,
+    LuSettings,
+  } from 'react-icons/lu'
+
 import { ThreeLayerLayout } from './ThreeLayerLayout'
+import { SidebarFooter } from './sidebarbottom/SidebarFooter'
+import { SidebarIcons } from './sidebartop/SidebarIcons'
+import { SidebarContent } from './sidebarmain/SidebarContent'
+import { SearchField } from './template/SearchField'
+import { UserProfile } from './template/UserProfile'
+import { SidebarLink } from './template/SidebarLink'
 
 const Sidebar = (props) => {
     return (
@@ -95,10 +117,250 @@ const Sidebar3 = () => {
     )
 }
 
-const Sidebar4 = () => {
+/**
+ * 3-layer structure abstraction with implemented components
+ */
+const CollapsibleSidebar = () => {
+
+    const [sidebarSize, setSidebarSize] = useState("large")
+
+    const toggleSidebar = () => {
+        setSidebarSize(sidebarSize === "small" ? "large" : "small");
+    }
+
+
+    const Top = () => {
+        return (
+            <SidebarIcons 
+                isCollapsed={sidebarSize === "small"} 
+                onToggleSidebar={toggleSidebar} 
+            />
+        )
+    }
+
+    const Main = () => {
+        return (
+            <>
+                {sidebarSize === "large" && <SidebarContent />}
+            </>
+        )
+    }
+
+    const Bottom = () => {
+        return (
+            <SidebarFooter isCollapsed={sidebarSize === "small"} />
+        )
+    }
+    
     return (
+        // <Stack
+        //     maxW="xs"
+        //     overflow="hidden"
+        // >
+        //     <ThreeLayerLayout
+        //         top={<Top />}
+        //         topProps={{bg: 'pink.500'}}
+        //         main={<Main />}
+        //         mainProps={{bg: 'blue.500'}}
+        //         bottom={<Bottom />}
+        //         bottomProps={{bg: 'green.500', borderTopWidth:"1px", p:4}}
+        //     />
+
+        // </Stack>
+
+        <ThreeLayerLayout
+            top={<Top />}
+            topProps={{bg: 'pink.500'}}
+            main={<Main />}
+            mainProps={{bg: 'blue.500'}}
+            bottom={<Bottom />}
+            bottomProps={{bg: 'green.500', borderTopWidth:"1px", p:4}}
+        />
         
     )
 }
 
-export { Sidebar, Sidebar2, Sidebar3 }
+const TemplateSidebar = (props) => {
+    return (
+        <Stack
+            flex="1"
+            p={{ base: '4', md: '6' }}
+            bg="blue.500"
+            borderRightWidth="1px"
+            justifyContent="space-between"
+            maxW="xs"
+            {...props}
+        >
+            <Stack gap="6" bg="red.500">
+                <Text style={{alignSelf: 'start'}}>Logo placeholder</Text>
+                <SearchField />
+
+                <Stack gap="1">
+                    <SidebarLink>
+                        <LuLayoutDashboard /> Dashboard
+                    </SidebarLink>
+                    <SidebarLink aria-current="page">
+                        <LuChartPie /> Analysis
+                    </SidebarLink>
+                    {/* <DocumentsLinks /> */}
+                    <SidebarLink>
+                        <LuClock /> History
+                    </SidebarLink>
+                    <SidebarLink>
+                        <LuBookmark /> Favorites
+                    </SidebarLink>
+                </Stack>
+            </Stack>
+
+            <Stack gap="4" separator={<StackSeparator />}>
+                <Box />
+                <Stack gap="1">
+                    <SidebarLink>
+                        <LuCircleHelp /> Help Center
+                    </SidebarLink>
+                    <SidebarLink>
+                        <LuSettings /> Settings
+                    </SidebarLink>
+                </Stack>
+                <UserProfile />
+            </Stack>
+
+        </Stack>
+    )
+}
+
+const TemplateSidebarThreeLayer = () => {
+    const [sidebarSize, setSidebarSize] = useState("large")
+
+    const toggleSidebar = () => {
+        setSidebarSize(sidebarSize === "small" ? "large" : "small");
+    }
+
+    const Top = () => {
+        const templateContent = () => {
+            return (
+                <>
+                    <Text style={{alignSelf: 'start'}}>Logo placeholder</Text>
+                    <SearchField />
+                </>
+            )
+        }
+
+        return (
+            // templateContent()
+            <SidebarIcons 
+                isCollapsed={sidebarSize === "small"} 
+                onToggleSidebar={toggleSidebar} 
+            />
+        )
+    }
+
+    const Main = () => {
+        const templateContent = () => {
+            return (
+                <Stack gap="1" >
+                    <Text fontSize="md" fontWeight="medium" alignSelf="start">
+                        Conversations 14
+                    </Text>
+
+                    <SidebarLink>
+                        <LuLayoutDashboard /> Dashboard
+                    </SidebarLink>
+                    <SidebarLink aria-current="page">
+                        <LuChartPie /> Analysis
+                    </SidebarLink>
+                    {/* <DocumentsLinks /> */}
+                    <SidebarLink>
+                        <LuClock /> History
+                    </SidebarLink>
+                    <SidebarLink>
+                        <LuBookmark /> Favorites
+                    </SidebarLink>
+                    <SidebarLink>
+                        <LuBookmark /> Favorites
+                    </SidebarLink>
+                    <SidebarLink>
+                        <LuBookmark /> Favorites
+                    </SidebarLink>
+                    <SidebarLink>
+                        <LuBookmark /> Favorites
+                    </SidebarLink>
+                    <SidebarLink>
+                        <LuBookmark /> Favorites
+                    </SidebarLink>
+                    <SidebarLink>
+                        <LuBookmark /> Favorites
+                    </SidebarLink>
+                    <SidebarLink>
+                        <LuBookmark /> Favorites
+                    </SidebarLink>
+
+
+                </Stack>
+            )
+        }
+
+        return (
+            // templateContent()
+            <>
+                {sidebarSize === "large" && <SidebarContent />}
+            </>
+        )
+    }
+
+    const Bottom = () => {
+        const templateContent = () => {
+            return (
+                <Stack gap="4" separator={<StackSeparator />}>
+                    <Box />
+                    <Stack gap="1">
+                        <SidebarLink>
+                            <LuCircleHelp /> Help Center
+                        </SidebarLink>
+                        <SidebarLink>
+                            <LuSettings /> Settings
+                        </SidebarLink>
+                    </Stack>
+                    <UserProfile />
+                </Stack>
+            )
+        }
+        return (
+            // templateContent()
+            <SidebarFooter isCollapsed={sidebarSize === "small"} />
+        )
+    }
+
+    return (
+        <Stack
+            flex="1"
+            // p={{ base: '4', md: '6' }}
+            bg="blue.500"
+            borderRightWidth="1px"
+            justifyContent="space-between"
+            maxW="xs"
+            overflow="hidden"
+            // {...props}
+        >
+            <ThreeLayerLayout
+                top={<Top />}
+                topProps={{bg: 'pink.500'}}
+                main={<Main />}
+                mainProps={{bg: 'blue.500', w: "full"}}
+                bottom={<Bottom />}
+                bottomProps={{bg: 'green.500', borderTopWidth:"1px", p:4}}
+            />
+        </Stack>
+        
+        
+    )
+}
+
+export { 
+    Sidebar, 
+    Sidebar2, 
+    Sidebar3, 
+    CollapsibleSidebar, 
+    TemplateSidebar, 
+    TemplateSidebarThreeLayer, 
+}
