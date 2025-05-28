@@ -110,7 +110,7 @@ const MOCK_CONVERSATIONS = [
 export const ChatService = {
     getConversations: async () => {
         // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay
+        await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second delay
 
         // Simulate error (uncomment to test error state)
         // throw new Error("Failed to fetch conversations");
@@ -120,7 +120,7 @@ export const ChatService = {
 };
 
 
-export const SidebarContent = () => {
+export const SidebarContent = ({ ...props }) => {
     // const { data: chats, isPending, error } = useQuery({
     //     queryFn: () => ChatService.getConversations(),
     //     queryKey: ["userChats"],
@@ -136,8 +136,8 @@ export const SidebarContent = () => {
             try {
                 setIsPending(true);
                 // Simulate API delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                const data = MOCK_CONVERSATIONS;
+                const data = await ChatService.getConversations();
+                // const data = MOCK_CONVERSATIONS;
                 setChats(data);
             } catch (err) {
                 setError(err);
@@ -152,14 +152,11 @@ export const SidebarContent = () => {
 
     return (
         // <Stack flex="1" overflow="hidden" spacing="8" bg="red.500">
-        <Stack gap="1" bg="red.500">
+        <Stack gap="1" bg="red.500" {...props}>
             <Text fontSize="md" fontWeight="medium" alignSelf="start">
                 Conversations ({chats?.length})
             </Text>
 
-            {/* <Flex>
-                <SearchField />
-            </Flex> */}
 
             <SidebarChatList 
                 data={chats}

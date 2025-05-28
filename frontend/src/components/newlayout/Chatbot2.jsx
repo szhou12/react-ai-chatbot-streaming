@@ -9,11 +9,14 @@ import { Content, Content2, Content3 } from './Content'
  * Right column: Content as whole
  * Inside Content: header + main content + textarea
  * Header: sticky to the top
+ * 
+ * Mobile view: Navbar takes Dashboard
+ * Desktop view: header takes Dashboard
  */
 function Chatbot2() {
     return (
         <>
-            <Navbar hideFrom="md" />
+            <Navbar hideFrom="md" position="sticky" top="0" />
 
             <Flex 
                 flex="1"
@@ -21,7 +24,7 @@ function Chatbot2() {
 
                 <Flex
                     hideBelow="md" 
-                    w="xs" 
+                    maxW="xs" 
                     position="sticky" 
                     top="0" 
                     direction="column"

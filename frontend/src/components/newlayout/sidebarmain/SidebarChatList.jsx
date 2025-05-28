@@ -6,7 +6,7 @@ import { SidebarLink } from '../sidebarbottom/SidebarLink'
 import { ChatTab } from './ChatTab'
 // import { Route } from '@/routes/_chat-layout/chat-session'
 
-export const SidebarChatList = ({ data, isPending, error }) => {
+export const SidebarChatList = ({ data, isPending, error, ...props }) => {
     // return (
     //     <Stack mt="2" spacing="4" flex="1" overflowY="auto" px="5" pb="5" bg="red.500">
     //         <Stack mt="2" spacing="4">
@@ -79,7 +79,7 @@ export const SidebarChatList = ({ data, isPending, error }) => {
     // )
 
     return (
-        <Stack gap="1">
+        <Stack gap="1" w="xs" {...props}>
             {isPending ? (
                 <VStack colorPalette="teal">
                     <Spinner 

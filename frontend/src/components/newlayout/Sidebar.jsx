@@ -229,7 +229,7 @@ const TemplateSidebar = (props) => {
     )
 }
 
-const TemplateSidebarThreeLayer = () => {
+const TemplateSidebarThreeLayer = ({...props}) => {
     const [sidebarSize, setSidebarSize] = useState("large")
 
     const toggleSidebar = () => {
@@ -340,13 +340,13 @@ const TemplateSidebarThreeLayer = () => {
             justifyContent="space-between"
             maxW="xs"
             overflow="hidden"
-            // {...props}
+            {...props}
         >
             <ThreeLayerLayout
                 top={<Top />}
                 topProps={{bg: 'pink.500'}}
                 main={<Main />}
-                mainProps={{bg: 'blue.500', w: "full"}}
+                mainProps={{bg: 'blue.500'}}
                 bottom={<Bottom />}
                 bottomProps={{bg: 'green.500', borderTopWidth:"1px", p:4}}
             />

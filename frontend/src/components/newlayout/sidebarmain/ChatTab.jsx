@@ -34,7 +34,7 @@ export const ChatTab = (props) => {
 
             
 
-            <Flex maxW="200px">
+            <Flex w="full">
                 <Text fontWeight="medium" truncate>
                     {title}
                 </Text>

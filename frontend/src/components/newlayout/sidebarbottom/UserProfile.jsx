@@ -4,7 +4,7 @@ import { UserMenu } from './UserMenu'
 import { Avatar } from "@/components/ui/avatar"
 import { LuEllipsisVertical } from 'react-icons/lu'
     
-export const UserProfile = ({ isCollapsed = false }) => {
+export const UserProfile = ({ isCollapsed = false, ...props }) => {
     // const { user, logout } = useAuth()
     const user = {
         email: 'test@test.com'
@@ -20,7 +20,7 @@ export const UserProfile = ({ isCollapsed = false }) => {
     }
 
     return (
-        <HStack gap="3" justify="space-between">
+        <HStack gap="3" justify="space-between" {...props}>
             <HStack gap="3">
                 <Avatar src={avatarSrc} />
                 <Box>
@@ -30,10 +30,10 @@ export const UserProfile = ({ isCollapsed = false }) => {
                 </Box>
             </HStack>
 
-            {/* <UserMenu logout={logout} isCollapsed={isCollapsed} /> */}
-            <IconButton variant="ghost" colorPalette="gray" aria-label="Open Menu">
+            <UserMenu logout={logout} isCollapsed={isCollapsed} />
+            {/* <IconButton variant="ghost" colorPalette="gray" aria-label="Open Menu">
                 <LuEllipsisVertical />
-            </IconButton>
+            </IconButton> */}
         </HStack>
     )
 }

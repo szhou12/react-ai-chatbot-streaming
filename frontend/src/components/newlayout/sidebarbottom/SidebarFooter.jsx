@@ -3,9 +3,9 @@ import { LuCircleHelp, LuSettings } from 'react-icons/lu'
 import { SidebarLink } from './SidebarLink'
 import { UserProfile } from './UserProfile'
 
-export const SidebarFooter = ({ isCollapsed = false }) => {
+export const SidebarFooter = ({ isCollapsed = false, ...props }) => {
     return (
-        <Stack gap="4" separator={<StackSeparator />}>
+        <Stack gap="4" separator={<StackSeparator />} {...props}>
             <Box /> {/* Spacer */}
             
             {!isCollapsed && (
