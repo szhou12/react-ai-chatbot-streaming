@@ -39,9 +39,9 @@ export const ThreeLayerLayout = ({
 }) => {
     return (
         <>
-            <TopLayer {...topProps}>{top}</TopLayer>
-            <MainLayer {...mainProps}>{main}</MainLayer>
-            <BottomLayer {...bottomProps}>{bottom}</BottomLayer>
+            {top && <TopLayer {...topProps}>{top}</TopLayer>}
+            {main && <MainLayer {...mainProps}>{main}</MainLayer>}
+            {bottom && <BottomLayer {...bottomProps}>{bottom}</BottomLayer>}
         </>
     );
 };

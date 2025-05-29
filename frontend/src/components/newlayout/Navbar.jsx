@@ -151,18 +151,6 @@ export const Navbar = (props) => {
 
                 {/* right element of Navbar */}
                 <HStack justify="space-between" >
-                    
-                    {role !== "client" && (
-                        <Tooltip showArrow content="Dashboard">
-                            <IconButton 
-                                variant="ghost"
-                                aria-label="Dashboard"
-                                color="black"
-                            >
-                                <LuLayoutDashboard />
-                            </IconButton>
-                        </Tooltip>
-                    )}
 
                     <Tooltip showArrow content="New Chat">
                         <IconButton 
@@ -173,6 +161,18 @@ export const Navbar = (props) => {
                             <BsPencilSquare />
                         </IconButton>
                     </Tooltip>
+
+                    {role !== "client" && (
+                        <Tooltip showArrow content="Staff Dashboard">
+                            <IconButton 
+                                variant="ghost"
+                                aria-label="Dashboard"
+                                color="black"
+                            >
+                                <LuLayoutDashboard />
+                            </IconButton>
+                        </Tooltip>
+                    )}
                     
                 </HStack>
                 

@@ -1,12 +1,16 @@
 import { Stack, IconButton } from "@chakra-ui/react"
 import { BsLayoutSidebarInset, BsPencilSquare, BsSearch } from "react-icons/bs"
+import { LuLayoutDashboard } from 'react-icons/lu'
 import { Tooltip } from "@/components/ui/tooltip"
 
+// TODO: use hook to get role, link the dashboard
 export const SidebarIcons = ({
     isCollapsed,
     onToggleSidebar,
     ...props
 }) => {
+    const role = "admin"
+
     return (
         <Stack
             direction={isCollapsed ? "column" : "row"}
@@ -60,6 +64,19 @@ export const SidebarIcons = ({
                         <BsPencilSquare />
                     </IconButton>
                 </Tooltip>
+
+                {/* Staff Dashboard Button */}
+                {role !== "client" && (
+                    <Tooltip showArrow content="Staff Dashboard">
+                        <IconButton 
+                            variant="ghost"
+                            aria-label="Dashboard"
+                            color="black"
+                        >
+                            <LuLayoutDashboard />
+                        </IconButton>
+                    </Tooltip>
+                )}
 
                 {/* Add more start-aligned buttons here */}
                 

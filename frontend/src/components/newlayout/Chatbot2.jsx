@@ -2,7 +2,7 @@ import { Container, Flex, Stack } from '@chakra-ui/react'
 import { Navbar } from './Navbar'
 import { Header } from './Header'
 import { Sidebar, Sidebar2, Sidebar3, CollapsibleSidebar, TemplateSidebar, TemplateSidebarThreeLayer } from './Sidebar'
-import { Content, Content2, Content3 } from './Content'
+import { Content, Content2, Content3, ChatbotContent } from './Content'
 
 /**
  * 
@@ -47,7 +47,8 @@ function Chatbot2() {
                     p={1}
                     alignItems="stretch"
                 >
-                    <Content3 />
+                    {/* <Content3 /> */}
+                    <ChatbotContent />
                 </Flex>
             </Flex>
         </>

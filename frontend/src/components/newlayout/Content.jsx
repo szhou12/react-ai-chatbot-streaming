@@ -3,9 +3,12 @@ import {
     Text,
     Flex,
     Textarea,
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 
 import { ThreeLayerLayout } from './ThreeLayerLayout'
+import { ChatInput } from './contentbottom/ChatInput'
+
+
 /**
  * 
  * single layout: content as whole
@@ -119,4 +122,34 @@ const Content3 = () => {
     )
 }
 
-export { Content, Content2, Content3 }
+const ChatbotContent = () => {
+
+    const Main = () => {
+        return (
+            <Text>Main Content Area</Text>
+        )
+    }
+
+    const Bottom = () => {
+        return (
+            <ChatInput
+                newMessage=""
+                isLoading={false}
+                setNewMessage={() => {}}
+                submitNewMessage={() => {}}
+            />
+        )
+    }
+
+
+    return (
+        <ThreeLayerLayout
+            main={<Main />}
+            mainProps={{bg: 'blue.500'}}
+            bottom={<Bottom />}
+            bottomProps={{bg: 'green.500', borderTopWidth:"1px", p: 2}}
+        />
+    )
+}
+
+export { Content, Content2, Content3, ChatbotContent }
