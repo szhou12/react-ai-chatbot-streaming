@@ -1,12 +1,16 @@
+import { useState, useEffect } from 'react'
 import { 
     Box, 
     Text,
     Flex,
     Textarea,
 } from '@chakra-ui/react'
+import { useImmer } from 'use-immer'
+import { parseSSEStream } from '@/utils'
 
 import { ThreeLayerLayout } from './ThreeLayerLayout'
 import { ChatInput } from './contentbottom/ChatInput'
+import { ChatMessages } from './contentmain/ChatMessages'
 
 
 /**
@@ -124,20 +128,86 @@ const Content3 = () => {
 
 const ChatbotContent = () => {
 
+    const [messages, setMessages] = useImmer([])
+    const [newMessage, setNewMessage] = useState('')
+
+    const isLoading = messages.length && messages[messages.length - 1].loading
+
+    async function submitNewMessage() {
+        const trimmedMessage = newMessage.trim()
+        if (!trimmedMessage || isLoading) return
+
+        setMessages(draft => [...draft,
+            {role: 'user', content: trimmedMessage},
+            {role: 'assistant', content: '', sources: [], loading: true}
+        ])
+        // sources[]: document references holder
+
+        // Clear the input field after the user sends a message
+        setNewMessage('')
+
+        try {
+            let currentChatId = urlChatId
+            
+            // If no chatId in URL, create new chat
+            if (!currentChatId) {
+                const { id } = await ChatService.createChat()
+                currentChatId = id
+                // Update URL with new chatId
+                // navigate({ 
+                //     to: '/c/$chatId',
+                //     params: { chatId: id }
+                // })
+            }
+
+            const response = await ChatService.sendChatMessage(currentChatId, trimmedMessage)
+            for await (const textChunk of parseSSEStream(response)) {
+                setMessages(draft => {
+                    draft[draft.length - 1].content += textChunk
+                })
+            }
+            setMessages(draft => {
+                draft[draft.length - 1].loading = false
+            })
+        } catch (error) {
+            console.error(error)
+            setMessages(draft => {
+                draft[draft.length - 1].loading = false
+                draft[draft.length - 1].error = true
+            })
+        }
+    }
+
     const Main = () => {
         return (
-            <Text>Main Content Area</Text>
+            <>
+                {messages.length === 0 ? (
+                    <Text>INSERT PREDEFINED PROMPTS HERE</Text>
+                ) : (
+                    <ChatMessages
+                        messages={messages}
+                        isLoading={isLoading}
+                    />
+                )}
+            </>
         )
     }
 
     const Bottom = () => {
         return (
             <ChatInput
-                newMessage=""
-                isLoading={false}
-                setNewMessage={() => {}}
-                submitNewMessage={() => {}}
+                newMessage={newMessage}
+                setNewMessage={setNewMessage}
+                submitNewMessage={submitNewMessage}
+                isLoading={isLoading}
             />
+            // <Textarea 
+            //     maxH="xs"
+            //     autoresize
+            //     placeholder="Type your message..."
+            //     resize="none"
+            //     rows={2}
+            // />
         )
     }
 

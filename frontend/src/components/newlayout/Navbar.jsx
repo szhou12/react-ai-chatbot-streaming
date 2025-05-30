@@ -26,7 +26,7 @@ import { Tooltip } from "@/components/ui/tooltip"
 // import { SidebarContent } from './sidebarmain/SidebarContent'
 import { SidebarChatList } from './sidebarmain/SidebarChatList'
 import { SidebarFooter } from './sidebarbottom/SidebarFooter'
-import { ChatService } from './sidebarmain/SidebarContent'
+import { ChatService } from './ChatService'
 
 
 /**

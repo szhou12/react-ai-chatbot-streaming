@@ -11,7 +11,7 @@ import { LuImagePlus, LuMic, LuSendHorizontal } from 'react-icons/lu'
 import useAutoSize from "@/hooks/useAutoSize"
 
 export const ChatInput = ({ newMessage, isLoading, setNewMessage, submitNewMessage }) => {
-    const textareaRef = useAutoSize(newMessage)
+    // const textareaRef = useAutoSize(newMessage)
 
     // Press Enter -> Send message
     // Press Shift + Enter -> New line
@@ -36,14 +36,15 @@ export const ChatInput = ({ newMessage, isLoading, setNewMessage, submitNewMessa
                 boxShadow="lg"
             >
                 <Textarea
-                    ref={textareaRef} // auto-adjust size of area
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
+                    // ref={textareaRef} // auto-adjust size of area
+                    autoresize
+                    // value={newMessage}
+                    // onChange={(e) => setNewMessage(e.target.value)}
                     onKeyDown={handleKeyDown}
                     unstyled
                     outline="none"
                     bg="transparent"
-                    resize="none"
+                    // resize="none"
                     width="full"
                     maxH="140px" // max height textarea can grow to
                     placeholder="Ask me anything about clean energy..."
