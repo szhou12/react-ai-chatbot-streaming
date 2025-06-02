@@ -211,12 +211,31 @@ const ChatbotContent = () => {
         )
     }
 
+    console.log('ChatbotContent render');
 
     return (
         <ThreeLayerLayout
-            main={<Main />}
+            main={
+                <>
+                    {messages.length === 0 ? (
+                        <Text>INSERT PREDEFINED PROMPTS HERE</Text>
+                    ) : (
+                        <ChatMessages
+                            messages={messages}
+                            isLoading={isLoading}
+                        />
+                    )}
+                </>
+            }
             mainProps={{bg: 'blue.500'}}
-            bottom={<Bottom />}
+            bottom={
+                <ChatInput
+                    newMessage={newMessage}
+                    setNewMessage={setNewMessage}
+                    submitNewMessage={submitNewMessage}
+                    isLoading={isLoading}
+                />
+            }
             bottomProps={{bg: 'green.500', borderTopWidth:"1px", p: 2}}
         />
     )

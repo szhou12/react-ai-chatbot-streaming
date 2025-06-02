@@ -8,10 +8,8 @@ import {
 } from '@chakra-ui/react'
 import { LuImagePlus, LuMic, LuSendHorizontal } from 'react-icons/lu'
 
-import useAutoSize from "@/hooks/useAutoSize"
 
 export const ChatInput = ({ newMessage, isLoading, setNewMessage, submitNewMessage }) => {
-    // const textareaRef = useAutoSize(newMessage)
 
     // Press Enter -> Send message
     // Press Shift + Enter -> New line
@@ -23,11 +21,10 @@ export const ChatInput = ({ newMessage, isLoading, setNewMessage, submitNewMessa
         }
     }
 
+
     return (
         <Container maxW="4xl">
             <Flex 
-                // as="form"
-                // onSubmit={handleSubmit}
                 bg="bg.muted" 
                 borderRadius="l2" 
                 px="4" 
@@ -36,17 +33,15 @@ export const ChatInput = ({ newMessage, isLoading, setNewMessage, submitNewMessa
                 boxShadow="lg"
             >
                 <Textarea
-                    // ref={textareaRef} // auto-adjust size of area
-                    autoresize
-                    // value={newMessage}
-                    // onChange={(e) => setNewMessage(e.target.value)}
+                    value={newMessage} // text displayed in textarea
+                    onChange={(e) => setNewMessage(e.target.value)}
                     onKeyDown={handleKeyDown}
+                    autoresize // auto-increase height to maxH
+                    maxH="120px" // max height textarea can grow to
                     unstyled
                     outline="none"
                     bg="transparent"
-                    // resize="none"
                     width="full"
-                    maxH="140px" // max height textarea can grow to
                     placeholder="Ask me anything about clean energy..."
                 />
 
@@ -63,7 +58,6 @@ export const ChatInput = ({ newMessage, isLoading, setNewMessage, submitNewMessa
                         onClick={submitNewMessage}
                         isDisabled={!newMessage.trim()}
                         aria-label="Send message"
-                        // type="submit"
                     >
                         <LuSendHorizontal />
                         

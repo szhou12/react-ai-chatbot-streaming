@@ -236,100 +236,6 @@ const TemplateSidebarThreeLayer = ({...props}) => {
         setSidebarSize(sidebarSize === "small" ? "large" : "small");
     }
 
-    const Top = () => {
-        const templateContent = () => {
-            return (
-                <>
-                    <Text style={{alignSelf: 'start'}}>Logo placeholder</Text>
-                    <SearchField />
-                </>
-            )
-        }
-
-        return (
-            // templateContent()
-            <SidebarIcons 
-                isCollapsed={sidebarSize === "small"} 
-                onToggleSidebar={toggleSidebar} 
-            />
-        )
-    }
-
-    const Main = () => {
-        const templateContent = () => {
-            return (
-                <Stack gap="1" >
-                    <Text fontSize="md" fontWeight="medium" alignSelf="start">
-                        Conversations 14
-                    </Text>
-
-                    <SidebarLink>
-                        <LuLayoutDashboard /> Dashboard
-                    </SidebarLink>
-                    <SidebarLink aria-current="page">
-                        <LuChartPie /> Analysis
-                    </SidebarLink>
-                    {/* <DocumentsLinks /> */}
-                    <SidebarLink>
-                        <LuClock /> History
-                    </SidebarLink>
-                    <SidebarLink>
-                        <LuBookmark /> Favorites
-                    </SidebarLink>
-                    <SidebarLink>
-                        <LuBookmark /> Favorites
-                    </SidebarLink>
-                    <SidebarLink>
-                        <LuBookmark /> Favorites
-                    </SidebarLink>
-                    <SidebarLink>
-                        <LuBookmark /> Favorites
-                    </SidebarLink>
-                    <SidebarLink>
-                        <LuBookmark /> Favorites
-                    </SidebarLink>
-                    <SidebarLink>
-                        <LuBookmark /> Favorites
-                    </SidebarLink>
-                    <SidebarLink>
-                        <LuBookmark /> Favorites
-                    </SidebarLink>
-
-
-                </Stack>
-            )
-        }
-
-        return (
-            // templateContent()
-            <>
-                {sidebarSize === "large" && <SidebarContent />}
-            </>
-        )
-    }
-
-    const Bottom = () => {
-        const templateContent = () => {
-            return (
-                <Stack gap="4" separator={<StackSeparator />}>
-                    <Box />
-                    <Stack gap="1">
-                        <SidebarLink>
-                            <LuCircleHelp /> Help Center
-                        </SidebarLink>
-                        <SidebarLink>
-                            <LuSettings /> Settings
-                        </SidebarLink>
-                    </Stack>
-                    <UserProfile />
-                </Stack>
-            )
-        }
-        return (
-            // templateContent()
-            <SidebarFooter isCollapsed={sidebarSize === "small"} />
-        )
-    }
 
     return (
         <Stack
@@ -343,11 +249,22 @@ const TemplateSidebarThreeLayer = ({...props}) => {
             {...props}
         >
             <ThreeLayerLayout
-                top={<Top />}
+                top={
+                    <SidebarIcons 
+                        isCollapsed={sidebarSize === "small"} 
+                        onToggleSidebar={toggleSidebar} 
+                    />
+                }
                 topProps={{bg: 'pink.500'}}
-                main={<Main />}
+                main={
+                    <>
+                        {sidebarSize === "large" && <SidebarContent />}
+                    </>
+                }
                 mainProps={{bg: 'blue.500'}}
-                bottom={<Bottom />}
+                bottom={
+                    <SidebarFooter isCollapsed={sidebarSize === "small"} />
+                }
                 bottomProps={{bg: 'green.500', borderTopWidth:"1px", p:4}}
             />
         </Stack>
