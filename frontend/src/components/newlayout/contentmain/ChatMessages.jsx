@@ -13,15 +13,18 @@ import { FaUser, FaExclamationCircle } from "react-icons/fa"
 
 import useAutoScroll from "@/hooks/useAutoScroll"
 import useAutoScrollChat from "@/hooks/useAutoScrollChat"
-import { ChatService } from '../ChatService'
+import useAutoScrollGPT from "@/hooks/useAutoScrollGPT"
+import useAutoScrollCursor from "@/hooks/useAutoScrollCursor"
 
 // import ScrollDebug from "@/features/Chat/ScrollDebug"
 
 export const ChatMessages = ({ messages, isLoading }) => {
-    const scrollContentRef = useAutoScrollChat(isLoading)
+    // const scrollContentRef = useAutoScrollCursor(isLoading)
+    // const scrollContentRef = useAutoScrollGPT(isLoading)
+    const scrollContentRef = useAutoScrollChat(messages, isLoading)
+
 
     return (
-        // <Box ref={scrollContentRef} flex="1">
         <Box 
             ref={scrollContentRef} 
             flex="1"
@@ -63,8 +66,8 @@ export const ChatMessages = ({ messages, isLoading }) => {
                                         </Markdown>
                                     </Prose>
                                     // <Text>
-                                    //     <Markdown>{content}</Markdown>
-                                    //     {/* {content} */}
+                                    //     {/* <Markdown>{content}</Markdown> */}
+                                    //     {content}
                                     // </Text>
                                     
                                 ) : (

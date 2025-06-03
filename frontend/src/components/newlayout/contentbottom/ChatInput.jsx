@@ -9,6 +9,7 @@ import {
 import { LuImagePlus, LuMic, LuSendHorizontal } from 'react-icons/lu'
 
 
+
 export const ChatInput = ({ newMessage, isLoading, setNewMessage, submitNewMessage }) => {
 
     // Press Enter -> Send message

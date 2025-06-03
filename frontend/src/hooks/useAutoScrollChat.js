@@ -12,90 +12,90 @@ const SCROLL_THRESHOLD = 10
  * Updated comments to reflect container-specific behavior
  */
 
-function useAutoScrollChat(active) {
+function useAutoScrollChat(messages, active) {
+    console.log("who is triggering: ", messages[messages.length-1]?.role)
+
     const scrollContentRef = useRef(null)
     const isDisabled = useRef(false)
     const prevScrollTop = useRef(null)
 
     useEffect(() => {
-        const resizeObserver = new ResizeObserver(() => {
-            if (!scrollContentRef.current) return
+        const node = scrollContentRef.current
+        if (!node) return
 
-            console.log('ResizeObserver triggered')
-            const { scrollHeight, clientHeight, scrollTop } = scrollContentRef.current
-            console.log('Current scroll position:', { scrollHeight, clientHeight, scrollTop })
-            
+        // ResizeObserver listens for changes to the size (height/width) of the scrollable chat container
+        // When the container's size changes (message arrives), the observer triggers a callback - auto-scroll to bottom
+        const resizeObserver = new ResizeObserver(() => {
+			// if (!node) return
+
+            const { scrollHeight, clientHeight, scrollTop } = node
+
             if (!isDisabled.current && scrollHeight - clientHeight > scrollTop) {
-                console.log('Auto-scrolling to bottom')
-                scrollContentRef.current.scrollTo({
+                node.scrollTo({
                     top: scrollHeight - clientHeight,
                     behavior: 'smooth'
-                })
-            } else {
-                console.log('Not auto-scrolling because:', {
-                    isDisabled: isDisabled.current,
-                    isAtBottom: scrollHeight - clientHeight <= scrollTop
                 })
             }
         })
 
-        if (scrollContentRef.current) {
-            console.log('Setting up ResizeObserver')
-            resizeObserver.observe(scrollContentRef.current)
-        }
-    
+        resizeObserver.observe(node)
         return () => resizeObserver.disconnect()
     }, [])
 
     useLayoutEffect(() => {
-        if (!active || !scrollContentRef.current) {
-            console.log('Auto-scroll disabled:', { active, hasRef: !!scrollContentRef.current })
-            isDisabled.current = true
-            return
-        }
+        const node = scrollContentRef.current
+        if (!node || !active) return
 
         function onScroll() {
-            if (!scrollContentRef.current) return
-
-            const { scrollHeight, clientHeight, scrollTop } = scrollContentRef.current
-
-            // Case 1: scrolling up AND not close to the bottom of the container, isDisabled becomes true
-            // Case 2: scrolling down close to the bottom (<= threshold), isDisabled becomes false 
-            if ( 
-                !isDisabled.current &&
-                scrollTop < prevScrollTop.current && 
-                scrollHeight - clientHeight - scrollTop > SCROLL_THRESHOLD
-            ) {
-                console.log('Disabling auto-scroll: user scrolled up')
+            const { scrollHeight, clientHeight, scrollTop } = node
+            
+            
+            if (!isDisabled.current && scrollTop < prevScrollTop.current && scrollHeight - clientHeight - scrollTop > SCROLL_THRESHOLD) {
+                // Case 1: User scrolls up, not close to bottom
                 isDisabled.current = true
-            } else if (
-                isDisabled.current &&
-                scrollHeight - clientHeight - scrollTop <= SCROLL_THRESHOLD
-            ) {
-                console.log('Enabling auto-scroll: user scrolled to bottom')
+            } else if (isDisabled.current && scrollHeight - clientHeight - scrollTop <= SCROLL_THRESHOLD) {
+                // Case 2: User scrolls down, close to bottom (<= threshold)
                 isDisabled.current = false
             }
-            // Save the scroll position for next time
+
             prevScrollTop.current = scrollTop
         }
 
-        // initial value setup: enable auto-scroll the first time the component mounts or active becomes true
+        // initial value setup
         isDisabled.current = false
-        prevScrollTop.current = scrollContentRef.current.scrollTop
+        prevScrollTop.current = node.scrollTop
+        
+        node.addEventListener('scroll', onScroll)
 
-        // The effect tracks container scroll events before the browser paints
-        scrollContentRef.current.addEventListener('scroll', onScroll)
-
-        // Removes the listener when active changes or component unmounts
-        return () => {
-            if (scrollContentRef.current) {
-                scrollContentRef.current.removeEventListener('scroll', onScroll)
-            }
-        }
-
+        return () => node.removeEventListener('scroll', onScroll)
     }, [active])
+
+    // Handles new message arrival (explicit scroll)
+    useLayoutEffect(() => {
+        const node = scrollContentRef.current
+        if (!node || !active) return
+
+        console.log('Scroll effect triggered:', {
+            scrollHeight: node.scrollHeight,
+            clientHeight: node.clientHeight,
+            isDisabled: isDisabled.current,
+            timestamp: new Date().toISOString()
+        })
+
+        // Only auto-scroll if not disabled (user hasn't scrolled up)
+        if (!isDisabled.current) {
+            node.scrollTo({
+                top: node.scrollHeight - node.clientHeight,
+                behavior: 'smooth'
+            })
+        }
+        // Optionally: if you want always scroll, drop the condition
+
+    }, [messages, active])
 
     return scrollContentRef
 }
 
+  
 export default useAutoScrollChat
+  

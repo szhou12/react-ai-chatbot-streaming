@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'
+
 const MOCK_CONVERSATIONS = [
     {
         id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
@@ -146,7 +148,7 @@ export const ChatService = {
             async start(controller) {
                 // Simulate streaming response
                 // const response = message
-                const response = "## Heading\n\nBased on your Chakra package. So [click here](http://chakra-ui.com) to confirm your plan.\n\n- first item\n- second item\n- second item\n- second item\n\n[title](http://chakra-ui.com)"
+                const response = "## Heading\n\nBased on your Chakra package. So [click here](http://chakra-ui.com) to confirm your plan.\n\n- first item\n- second item\n"
                 // const chunks = response.split('\n\n')
                 const chunks = response.split(/(?<=\n)/)
 

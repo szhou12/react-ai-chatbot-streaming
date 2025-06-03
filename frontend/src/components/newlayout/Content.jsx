@@ -11,6 +11,7 @@ import { parseSSEStream } from '@/utils'
 import { ThreeLayerLayout } from './ThreeLayerLayout'
 import { ChatInput } from './contentbottom/ChatInput'
 import { ChatMessages } from './contentmain/ChatMessages'
+import { ChatService } from './ChatService'
 
 
 /**
@@ -133,6 +134,8 @@ const ChatbotContent = () => {
 
     const isLoading = messages.length && messages[messages.length - 1].loading
 
+    const urlChatId = null
+
     async function submitNewMessage() {
         const trimmedMessage = newMessage.trim()
         if (!trimmedMessage || isLoading) return
@@ -178,40 +181,8 @@ const ChatbotContent = () => {
         }
     }
 
-    const Main = () => {
-        return (
-            <>
-                {messages.length === 0 ? (
-                    <Text>INSERT PREDEFINED PROMPTS HERE</Text>
-                ) : (
-                    <ChatMessages
-                        messages={messages}
-                        isLoading={isLoading}
-                    />
-                )}
-            </>
-        )
-    }
 
-    const Bottom = () => {
-        return (
-            <ChatInput
-                newMessage={newMessage}
-                setNewMessage={setNewMessage}
-                submitNewMessage={submitNewMessage}
-                isLoading={isLoading}
-            />
-            // <Textarea 
-            //     maxH="xs"
-            //     autoresize
-            //     placeholder="Type your message..."
-            //     resize="none"
-            //     rows={2}
-            // />
-        )
-    }
 
-    console.log('ChatbotContent render');
 
     return (
         <ThreeLayerLayout
