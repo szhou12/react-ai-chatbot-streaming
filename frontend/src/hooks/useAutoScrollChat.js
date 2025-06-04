@@ -21,12 +21,12 @@ function useAutoScrollChat(messages, active) {
 
     useEffect(() => {
         const node = scrollContentRef.current
-        if (!node) return
+        // if (!node) return
 
         // ResizeObserver listens for changes to the size (height/width) of the scrollable chat container
         // When the container's size changes (message arrives), the observer triggers a callback - auto-scroll to bottom
         const resizeObserver = new ResizeObserver(() => {
-			// if (!node) return
+			if (!node) return
 
             const { scrollHeight, clientHeight, scrollTop } = node
 

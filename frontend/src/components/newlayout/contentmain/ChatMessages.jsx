@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { 
     Box,
     Flex,
@@ -16,17 +17,29 @@ import useAutoScrollChat from "@/hooks/useAutoScrollChat"
 import useAutoScrollGPT from "@/hooks/useAutoScrollGPT"
 import useAutoScrollCursor from "@/hooks/useAutoScrollCursor"
 
-// import ScrollDebug from "@/features/Chat/ScrollDebug"
 
 export const ChatMessages = ({ messages, isLoading }) => {
     // const scrollContentRef = useAutoScrollCursor(isLoading)
     // const scrollContentRef = useAutoScrollGPT(isLoading)
-    const scrollContentRef = useAutoScrollChat(messages, isLoading)
+    // const scrollContentRef = useAutoScrollChat(messages, isLoading)
+
+    const messagesEndRef = useRef(null)
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            messagesEndRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "end",
+                inline: "nearest",
+            })
+        }, 100)
+
+        return () => clearTimeout(timeoutId)
+    }, [messages])
 
 
     return (
         <Box 
-            ref={scrollContentRef} 
+            // ref={scrollContentRef} 
             flex="1"
             overflowY="auto"  // Enable vertical scrolling
             height="100%"     // Take full height of parent
@@ -60,7 +73,7 @@ export const ChatMessages = ({ messages, isLoading }) => {
                                         css={{ "--spinner-track-color": "colors.gray.200" }}
                                     />
                                 ) : role === "assistant" ? (
-                                    <Prose mx="auto">
+                                    <Prose mx="auto" textAlign="left">
                                         <Markdown>
                                             {content}
                                         </Markdown>
@@ -73,6 +86,7 @@ export const ChatMessages = ({ messages, isLoading }) => {
                                 ) : (
                                     // user typed-in message
                                     <Text 
+                                        textAlign="left"
                                         // whiteSpace="pre-line"
                                         whiteSpace="pre-wrap"     // Preserve line breaks and wrap text
                                         wordBreak="break-word"    // Break long words if necessary
@@ -94,7 +108,7 @@ export const ChatMessages = ({ messages, isLoading }) => {
                                     <Icon size="lg">
                                         <FaExclamationCircle />
                                     </Icon>
-                                    <Text>Error generating the response</Text>
+                                    <Text textAlign="left">Error generating the response</Text>
                                 </Flex>   
                             )}
 
@@ -103,7 +117,14 @@ export const ChatMessages = ({ messages, isLoading }) => {
                     </Flex>
                 ))}
             </VStack>
-            {/* <ScrollDebug scrollRef={scrollContentRef} /> */}
+            
+            <Box
+                ref={messagesEndRef} 
+                paddingBottom="10" // decides how much bottom empty space will show
+                height="1px"
+                width="100%"
+                bg="gray.200"
+            />
         </Box>
     )
 

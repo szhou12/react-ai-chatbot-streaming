@@ -9,7 +9,7 @@ function useAutoScroll(active) {
   
     useEffect(() => {
       const node = scrollContentRef.current
-    //   if (!node) return // null checking placed here - user's message won't trigger auto-scroll
+    //   if (!node) return // place null checking here - user's message won't trigger auto-scroll
   
       const resizeObserver = new ResizeObserver(() => {
         if (!node) return // null checking switched to here - will trigger auto-scroll

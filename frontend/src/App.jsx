@@ -11,7 +11,7 @@ import { IndexPage as IndexPage3 } from './components/newlayout/IndexPage'
 
 function App() {
   return (
-    <IndexPage3 />
+    <IndexPage2 />
   )
 }
 
