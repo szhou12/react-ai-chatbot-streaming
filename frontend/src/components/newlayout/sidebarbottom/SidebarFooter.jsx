@@ -1,5 +1,6 @@
 import { Box, Stack, StackSeparator } from '@chakra-ui/react'
 import { LuCircleHelp, LuLayoutDashboard, LuSettings } from 'react-icons/lu'
+
 import { SidebarLink } from './SidebarLink'
 import { UserProfile } from './UserProfile'
 
