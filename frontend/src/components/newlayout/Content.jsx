@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { 
     Box, 
+    Center,
     Text,
     Flex,
     Textarea,
@@ -200,12 +201,21 @@ const ChatbotContent = () => {
             }
             mainProps={{bg: 'blue.500'}}
             bottom={
-                <ChatInput
-                    newMessage={newMessage}
-                    setNewMessage={setNewMessage}
-                    submitNewMessage={submitNewMessage}
-                    isLoading={isLoading}
-                />
+                <>
+                    <ChatInput
+                        newMessage={newMessage}
+                        setNewMessage={setNewMessage}
+                        submitNewMessage={submitNewMessage}
+                        isLoading={isLoading}
+                    />
+
+                    <Center height="7" bg="currentBg">
+                        <Text textStyle="xs" color="fg.subtle" textAlign="center">
+                            Our AI model can make mistakes. Be sure to check important info.
+                        </Text>
+                    </Center>
+                </>
+                
             }
             bottomProps={{bg: 'green.500', borderTopWidth:"1px", p: 2}}
         />

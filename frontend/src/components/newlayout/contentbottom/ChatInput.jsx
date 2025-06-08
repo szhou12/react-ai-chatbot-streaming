@@ -59,6 +59,7 @@ export const ChatInput = ({ newMessage, isLoading, setNewMessage, submitNewMessa
                         onClick={submitNewMessage}
                         isDisabled={!newMessage.trim()}
                         aria-label="Send message"
+                        variant={isLoading ? "ghost" : "solid"}
                     >
                         <LuSendHorizontal />
                         
